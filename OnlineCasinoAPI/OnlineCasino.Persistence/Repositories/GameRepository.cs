@@ -1,4 +1,5 @@
-﻿using OnlineCasino.Persistence.Context.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineCasino.Persistence.Context.Interfaces;
 using OnlineCasino.Persistence.DataModels;
 using OnlineCasino.Persistence.Repositories.Interfaces;
 using System;
@@ -25,7 +26,12 @@ namespace OnlineCasino.Persistence.Repositories
 
         public List<GamesDataModel> GetAllGames()
         {
-            return _context.Games.ToList();
+            return _context.Games.Include("GameCollections")
+                                 .Include("GameCollections.Collection")
+                                 .Include("GameDevices")
+                                 .Include("GameDevices.Device")
+                                 .Include("Category")
+                                 .ToList();
         }
     }
 }

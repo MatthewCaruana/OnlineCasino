@@ -17,6 +17,8 @@ namespace OnlineCasino.Persistence.DataMappings
 
             builder.Property(x=>x.ID).HasColumnName("ID");
             builder.Property(x=>x.Name).HasColumnName("Name");
+
+            builder.HasMany(x => x.GameDevices).WithOne(x => x.Device).HasPrincipalKey(x => x.ID);
         }
     }
 }

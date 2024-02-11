@@ -20,6 +20,10 @@ namespace OnlineCasino.Persistence.DataMappings
             builder.Property(x => x.ReleaseDate).HasColumnName("ReleaseDate");
             builder.Property(x=>x.CategoryID).HasColumnName("CategoryID");
             builder.Property(x => x.Thumbnail).HasColumnName("Thumbnail");
+
+            builder.HasMany(x => x.GameDevices).WithOne(x => x.Game).HasForeignKey(x => x.GamesID);
+            builder.HasMany(x => x.GameCollections).WithOne(x => x.Game).HasForeignKey(x => x.GamesID);
+            builder.HasOne(x => x.Category).WithMany(x => x.Games).HasForeignKey(x => x.CategoryID);
         }
     }
 }

@@ -10,5 +10,6 @@ namespace OnlineCasino.Persistence.DataModels
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public virtual List<GamesDataModel> Games { get; set; }
     }
 }

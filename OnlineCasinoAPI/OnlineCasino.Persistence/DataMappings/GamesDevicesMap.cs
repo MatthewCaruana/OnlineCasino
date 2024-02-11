@@ -13,8 +13,13 @@ namespace OnlineCasino.Persistence.DataMappings
     {
         public void Configure(EntityTypeBuilder<GamesDevicesDataModel> builder)
         {
+            builder.HasKey(x=>new { x.DevicesID, x.GamesID});
+
             builder.Property(x => x.DevicesID).HasColumnName("DevicesID");
             builder.Property(x => x.GamesID).HasColumnName("GamesID");
+
+            builder.HasOne(x => x.Device).WithMany(x => x.GameDevices).HasForeignKey(x => x.DevicesID);
+            builder.HasOne(x => x.Game).WithMany(x => x.GameDevices).HasForeignKey(x => x.GamesID);
         }
     }
 }

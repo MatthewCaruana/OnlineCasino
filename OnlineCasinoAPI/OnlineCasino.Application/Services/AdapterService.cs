@@ -29,6 +29,7 @@ namespace OnlineCasino.Application.Services
 
                 tempDTO.Devices = gamesDataModel.GameDevices.Select(x => x.Device.Name).ToList();
                 tempDTO.Collections = gamesDataModel.GameCollections.Select(x=>x.Collection.Name).ToList();
+                AllGamesDTOs.Add(tempDTO);
             }
 
             return AllGamesDTOs;
