@@ -1,4 +1,7 @@
-﻿using OnlineCasino.Application.Services.Interfaces;
+﻿using OnlineCasino.Application.DTOs;
+using OnlineCasino.Application.Services.Interfaces;
+using OnlineCasino.Persistence.DataModels;
+using OnlineCasino.Persistence.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +12,20 @@ namespace OnlineCasino.Application.Services
 {
     public class GameService : IGameService
     {
+        private IGameRepository _gameRepository;
+
+        public GameService(IGameRepository gameRepository)
+        {
+            _gameRepository = gameRepository;
+        }
+
+        public List<AllGamesDTO> GetAllGames()
+        {
+            List<GamesDataModel> AllGames = _gameRepository.GetAllGames();
+
+            List<AllGamesDTO> Result = AdapterService.AdaptToAllGamesDTO(AllGames);
+
+            return Result;
+        }
     }
 }

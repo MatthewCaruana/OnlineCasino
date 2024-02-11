@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\OnlineCasino.Persistence\OnlineCasino.Persistence.csproj" />
-  </ItemGroup>
-
 </Project>
