@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineCasino.Application.Services.Interfaces
 {
-    public interface IAuthenticationService
+    public interface IAuthService
     {
     }
 }

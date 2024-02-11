@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineCasino.Persistence\OnlineCasino.Persistence.csproj" />
+    <ProjectReference Include="..\OnlineCasino.Shared\OnlineCasino.Shared.csproj" />
   </ItemGroup>
 
 </Project>

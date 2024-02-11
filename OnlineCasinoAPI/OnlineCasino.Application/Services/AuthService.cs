@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineCasino.Application.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthService : IAuthService
     {
     }
 }

@@ -1,4 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
+using OnlineCasino.Application.Services;
+using OnlineCasino.Application.Services.Interfaces;
+using OnlineCasino.Persistence.Context;
+using OnlineCasino.Persistence.Context.Interfaces;
+using OnlineCasino.Persistence.Repositories;
+using OnlineCasino.Persistence.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +15,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddDbContext<OnlineCasinoDbContext>();
+
+builder.Services.AddScoped<IOnlineCasinoDbContext, OnlineCasinoDbContext>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGameService, GameService>();
+
+builder.Services.AddTransient<IGameRepository, GameRepository>();
 
 var app = builder.Build();
 
