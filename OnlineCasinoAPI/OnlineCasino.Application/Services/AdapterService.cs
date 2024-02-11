@@ -5,6 +5,7 @@ using OnlineCasino.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,31 @@ namespace OnlineCasino.Application.Services
             }
 
             return AllGamesDTOs;
+        }
+
+        public static List<AllCollectionsDTO> AdaptToAllCollectionsDTO(List<CollectionsDataModel> dataModels)
+        {
+            List<AllCollectionsDTO> AllCollectionsDTOs = new List<AllCollectionsDTO>();
+
+            AllCollectionsDTO tempDTO;
+
+            foreach(CollectionsDataModel dataModel in dataModels)
+            {
+                tempDTO = new AllCollectionsDTO();
+
+                tempDTO.ID = dataModel.ID;
+                tempDTO.Name = dataModel.Name;
+                tempDTO.GameIDs = dataModel.GamesCollections.Select(x=>x.GamesID).ToList();
+                
+                if(dataModel.CollectionTreeRoots.Count > 0)
+                {
+                    tempDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeBranch.Select(x=>x.Branch).ToList());
+                }
+
+                AllCollectionsDTOs.Add(tempDTO);
+            }
+
+            return AllCollectionsDTOs;
         }
     }
 }

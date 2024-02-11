@@ -21,7 +21,11 @@ namespace OnlineCasino.Persistence.Repositories
 
         public List<CollectionsDataModel> GetAllCollections()
         {
-            return _context.Collections.ToList();
+            return _context.Collections.Include("GameCollections")
+                                       .Include("GameCollections.Game")
+                                       .Include("CollectionTreeRoots")
+                                       .Include("CollectionTreeBranches")
+                                       .ToList();
         }
 
         public List<GamesDataModel> GetAllGames()
