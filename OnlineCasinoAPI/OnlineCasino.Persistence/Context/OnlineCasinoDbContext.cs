@@ -22,6 +22,7 @@ namespace OnlineCasino.Persistence.Context
         public DbSet<CollectionsDataModel> Collections { get; set; }
         public DbSet<DevicesDataModel> Devices { get; set; }
         public DbSet<CollectionTreeDataModel> CollectionTrees { get; set; }
+        public DbSet<UsersDataModel> Users { get; set; }
 
         public OnlineCasinoDbContext() { }
 
@@ -46,6 +47,7 @@ namespace OnlineCasino.Persistence.Context
             modelBuilder.ApplyConfiguration(new CollectionsMap());
             modelBuilder.ApplyConfiguration(new DevicesMap());
             modelBuilder.ApplyConfiguration(new CollectionTreeMap());
+            modelBuilder.ApplyConfiguration(new UsersMap());
         }
 
         public new void SaveChanges()

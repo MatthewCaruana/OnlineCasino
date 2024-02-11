@@ -10,5 +10,6 @@ namespace OnlineCasino.Application.Services.Interfaces
     public interface IGameService
     { 
         public List<AllGamesDTO> GetAllGames();
+        public List<AllCollectionsDTO> GetAllCollections();
     }
 }

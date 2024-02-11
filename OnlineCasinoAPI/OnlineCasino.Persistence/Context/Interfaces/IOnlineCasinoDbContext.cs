@@ -17,5 +17,6 @@ namespace OnlineCasino.Persistence.Context.Interfaces
         DbSet<CollectionsDataModel> Collections { get; set; }
         DbSet<DevicesDataModel> Devices { get; set; }
         DbSet<CollectionTreeDataModel> CollectionTrees { get; set; }
+        DbSet<UsersDataModel> Users { get; set; }
     }
 }

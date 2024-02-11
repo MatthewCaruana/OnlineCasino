@@ -18,6 +18,11 @@ namespace OnlineCasino.Persistence.Repositories
             _context = context;
         }
 
+        public List<CollectionsDataModel> GetAllCollections()
+        {
+            return _context.Collections.ToList();
+        }
+
         public List<GamesDataModel> GetAllGames()
         {
             return _context.Games.ToList();

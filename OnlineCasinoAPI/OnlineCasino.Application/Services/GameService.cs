@@ -27,5 +27,14 @@ namespace OnlineCasino.Application.Services
 
             return Result;
         }
+
+        public List<AllCollectionsDTO> GetAllCollections()
+        {
+            List<CollectionsDataModel> AllCollections = _gameRepository.GetAllCollections();
+
+            List<AllCollectionsDTO> Result = AdapterService.AdaptToAllCollectionsDTO(AllCollections);
+
+            return Result;
+        }
     }
 }
