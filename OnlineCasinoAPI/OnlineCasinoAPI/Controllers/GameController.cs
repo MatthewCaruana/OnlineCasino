@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCasino.Application.DTOs;
 using OnlineCasino.Application.Services.Interfaces;
@@ -20,6 +21,7 @@ namespace OnlineCasinoAPI.Controllers
 
         [HttpGet]
         [Route("GetAllGames")]
+        [AllowAnonymous]
         public List<AllGamesDTO> GetAllGames()
         {
             return _gameService.GetAllGames();
@@ -27,6 +29,7 @@ namespace OnlineCasinoAPI.Controllers
 
         [HttpGet]
         [Route("GetAllCollections")]
+        [AllowAnonymous]
         public List<AllCollectionsDTO> GetAllCollections()
         {
             return _gameService.GetAllCollections();
