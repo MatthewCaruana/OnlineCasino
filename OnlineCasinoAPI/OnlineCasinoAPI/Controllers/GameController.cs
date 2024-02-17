@@ -34,5 +34,21 @@ namespace OnlineCasinoAPI.Controllers
         {
             return _gameService.GetAllCollections();
         }
+
+        [HttpGet]
+        [Route("GetGame")]
+        [AllowAnonymous]
+        public AllGamesDTO GetGame(int id)
+        {
+            return _gameService.GetGameById(id);
+        }
+
+        [HttpGet]
+        [Route("GetCollection")]
+        [AllowAnonymous]
+        public AllCollectionsDTO GetCollection(int id)
+        {
+            return _gameService.GetCollectionById(id);
+        }
     }
 }

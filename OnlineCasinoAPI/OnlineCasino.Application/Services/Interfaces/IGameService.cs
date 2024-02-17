@@ -11,5 +11,7 @@ namespace OnlineCasino.Application.Services.Interfaces
     { 
         public List<AllGamesDTO> GetAllGames();
         public List<AllCollectionsDTO> GetAllCollections();
+        public AllGamesDTO GetGameById(int id);
+        public AllCollectionsDTO GetCollectionById(int id);
     }
 }

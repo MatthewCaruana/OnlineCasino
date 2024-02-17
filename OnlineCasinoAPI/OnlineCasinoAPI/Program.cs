@@ -28,6 +28,7 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IAuthRepository, AuthRepository>();
 
+//JWT Setup
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
 var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
 
@@ -45,6 +46,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
      };
  });
+//JWT Setup End
 
 
 var app = builder.Build();

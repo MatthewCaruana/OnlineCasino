@@ -60,5 +60,37 @@ namespace OnlineCasino.Application.Services
 
             return AllCollectionsDTOs;
         }
+
+        public static AllGamesDTO AdaptToAllGamesDTO(GamesDataModel dataModel)
+        {
+            AllGamesDTO gameDTO = new AllGamesDTO();
+
+            gameDTO.ID = dataModel.ID;
+            gameDTO.Name = dataModel.Name;
+            gameDTO.ReleaseDate = dataModel.ReleaseDate;
+            gameDTO.CategoryName = dataModel.Category.Name;
+            gameDTO.Thumbnail = dataModel.Thumbnail;
+
+            gameDTO.Devices = dataModel.GameDevices.Select(x => x.Device.Name).ToList();
+            gameDTO.Collections = dataModel.GameCollections.Select(x => x.Collection.Name).ToList();
+
+            return gameDTO;
+        }
+
+        public static AllCollectionsDTO AdaptToAllCollectionsDTO(CollectionsDataModel dataModel)
+        {
+            AllCollectionsDTO collectionDTO= new AllCollectionsDTO();
+
+            collectionDTO.ID = dataModel.ID;
+            collectionDTO.Name = dataModel.Name;
+            collectionDTO.GameIDs = dataModel.GamesCollections.Select(x => x.GamesID).ToList();
+
+            if (dataModel.CollectionTreeRoots.Count > 0)
+            {
+                collectionDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeBranch.Select(x => x.Branch).ToList());
+            }
+
+            return collectionDTO;
+        }
     }
 }

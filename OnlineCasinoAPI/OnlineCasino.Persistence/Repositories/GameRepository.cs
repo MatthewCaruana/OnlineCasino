@@ -37,5 +37,24 @@ namespace OnlineCasino.Persistence.Repositories
                                  .Include("Category")
                                  .ToList();
         }
+
+        public CollectionsDataModel GetCollectionById(int id)
+        {
+            return _context.Collections.Include("GameCollections")
+                                       .Include("GameCollections.Game")
+                                       .Include("CollectionTreeRoots")
+                                       .Include("CollectionTreeBranches")
+                                       .FirstOrDefault(x=>x.ID == id);
+        }
+
+        public GamesDataModel GetGameById(int id)
+        {
+            return _context.Games.Include("GameCollections")
+                                 .Include("GameCollections.Collection")
+                                 .Include("GameDevices")
+                                 .Include("GameDevices.Device")
+                                 .Include("Category")
+                                 .FirstOrDefault(x=>x.ID == id);
+        }
     }
 }

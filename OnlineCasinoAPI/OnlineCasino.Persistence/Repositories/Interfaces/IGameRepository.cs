@@ -10,7 +10,8 @@ namespace OnlineCasino.Persistence.Repositories.Interfaces
     public interface IGameRepository
     {
         public List<GamesDataModel> GetAllGames();
-
         public List<CollectionsDataModel> GetAllCollections();
+        public GamesDataModel GetGameById(int id);
+        public CollectionsDataModel GetCollectionById(int id);
     }
 }

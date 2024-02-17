@@ -36,5 +36,31 @@ namespace OnlineCasino.Application.Services
 
             return Result;
         }
+
+        public AllGamesDTO GetGameById(int id)
+        {
+            GamesDataModel Game = _gameRepository.GetGameById(id);
+
+            if (Game != null)
+            {
+                AllGamesDTO Result = AdapterService.AdaptToAllGamesDTO(Game);
+                
+                return Result;
+            }
+            return null;
+        }
+
+        public AllCollectionsDTO GetCollectionById(int id)
+        {
+            CollectionsDataModel Collection = _gameRepository.GetCollectionById(id);
+
+            if (Collection != null)
+            {
+                AllCollectionsDTO Result = AdapterService.AdaptToAllCollectionsDTO(Collection);
+
+                return Result;
+            }
+            return null;
+        }
     }
 }
