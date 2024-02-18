@@ -24,14 +24,14 @@ namespace OnlineCasino.Persistence.Repositories
             _context.Games.Add(game);
         }
 
-        public void AddGameDevice(GamesDevicesDataModel gamesDevices)
+        public void AddGameDevice(List<GamesDevicesDataModel> gamesDevices)
         {
-            _context.GamesDevices.Add(gamesDevices);
+            _context.GamesDevices.AddRange(gamesDevices);
         }
 
-        public void AddGamesCollections(GamesCollectionsDataModel gamesCollections)
+        public void AddGamesCollections(List<GamesCollectionsDataModel> gamesCollections)
         {
-            _context.GamesCollections.Add(gamesCollections);
+            _context.GamesCollections.AddRange(gamesCollections);
         }
 
         public List<CollectionsDataModel> GetAllCollections()

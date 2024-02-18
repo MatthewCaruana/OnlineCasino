@@ -11,7 +11,7 @@ namespace OnlineCasinoAPI.Controllers
     public class GameMasterController : ControllerBase
     {
         private readonly ILogger<GameMasterController> _logger;
-        private IGameService _gameService;
+        private IGameManagerService _gameService;
 
         public GameMasterController(ILogger<GameMasterController> logger, IGameService gameService)
         {
@@ -51,7 +51,14 @@ namespace OnlineCasinoAPI.Controllers
         [Route("DeleteGame")]
         public void DeleteGame([FromBody] int id)
         {
+            try
+            {
+                _gameService.DeleteGame(id);
+            }
+            catch
+            {
 
+            }
         }
 
         [HttpPut]
