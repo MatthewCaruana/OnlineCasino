@@ -19,6 +19,21 @@ namespace OnlineCasino.Persistence.Repositories
             _context = context;
         }
 
+        public void AddGame(GamesDataModel game)
+        {
+            _context.Games.Add(game);
+        }
+
+        public void AddGameDevice(GamesDevicesDataModel gamesDevices)
+        {
+            _context.GamesDevices.Add(gamesDevices);
+        }
+
+        public void AddGamesCollections(GamesCollectionsDataModel gamesCollections)
+        {
+            _context.GamesCollections.Add(gamesCollections);
+        }
+
         public List<CollectionsDataModel> GetAllCollections()
         {
             return _context.Collections.Include("GameCollections")
@@ -38,7 +53,7 @@ namespace OnlineCasino.Persistence.Repositories
                                  .ToList();
         }
 
-        public CollectionsDataModel GetCollectionById(int id)
+        public CollectionsDataModel? GetCollectionById(int id)
         {
             return _context.Collections.Include("GameCollections")
                                        .Include("GameCollections.Game")
@@ -47,7 +62,7 @@ namespace OnlineCasino.Persistence.Repositories
                                        .FirstOrDefault(x=>x.ID == id);
         }
 
-        public GamesDataModel GetGameById(int id)
+        public GamesDataModel? GetGameById(int id)
         {
             return _context.Games.Include("GameCollections")
                                  .Include("GameCollections.Collection")
@@ -55,6 +70,33 @@ namespace OnlineCasino.Persistence.Repositories
                                  .Include("GameDevices.Device")
                                  .Include("Category")
                                  .FirstOrDefault(x=>x.ID == id);
+        }
+
+        public void RemoveCollection(int id)
+        {
+            var Collection = GetCollectionById(id);
+
+            _context.CollectionTrees.RemoveRange(Collection.CollectionTreeRoots);
+            _context.CollectionTrees.RemoveRange(Collection.CollectionTreeBranch);
+
+            _context.GamesCollections.RemoveRange(Collection.GamesCollections);
+
+            _context.Collections.Remove(Collection);
+        }
+
+        public void RemoveGame(int id)
+        {
+            var Game = GetGameById(id);
+
+            _context.GamesDevices.RemoveRange(Game.GameDevices);
+            _context.GamesCollections.RemoveRange(Game.GameCollections);
+
+            _context.Games.Remove(Game);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

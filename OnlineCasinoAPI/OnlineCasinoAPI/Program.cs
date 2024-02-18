@@ -24,6 +24,7 @@ builder.Services.AddScoped<IOnlineCasinoDbContext, OnlineCasinoDbContext>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IGameManagerService, GameManagerService>();
 
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IAuthRepository, AuthRepository>();
