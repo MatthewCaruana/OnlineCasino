@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineCasino.Application.DTOs;
 using OnlineCasino.Application.Services.Interfaces;
+using OnlineCasino.Shared.Exceptions;
 
 namespace OnlineCasinoAPI.Controllers
 {
@@ -35,16 +36,33 @@ namespace OnlineCasinoAPI.Controllers
 
         [HttpPut]
         [Route("UpdateGame")]
-        public void UpdateGame([FromBody] UpdateGameDTO updateGame)
+        public IActionResult UpdateGame([FromBody] UpdateGameDTO updateGame)
         {
-            _gameManagerService.UpdateGame(updateGame);
+            try
+            {
+                _gameManagerService.UpdateGame(updateGame);
+
+                return Ok();
+
+            }catch(GameNotFoundException e)
+            {
+                return NoContent();
+            }
         }
 
         [HttpPut]
         [Route("UpdateCollection")]
-        public void UpdateCollection([FromBody] UpdateCollectionDTO updateCollection)
+        public IActionResult UpdateCollection([FromBody] UpdateCollectionDTO updateCollection)
         {
-            _gameManagerService.UpdateCollection(updateCollection);
+            try
+            {
+                _gameManagerService.UpdateCollection(updateCollection);
+
+                return Ok();
+            }catch(CollectionNotFoundException e)
+            {
+                return NoContent();
+            }
         }
 
         [HttpDelete]

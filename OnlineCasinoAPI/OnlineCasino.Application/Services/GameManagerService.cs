@@ -4,6 +4,7 @@ using OnlineCasino.Persistence.Context.Interfaces;
 using OnlineCasino.Persistence.DataModels;
 using OnlineCasino.Persistence.Repositories.Interfaces;
 using OnlineCasino.Shared.Enums;
+using OnlineCasino.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,6 +179,7 @@ namespace OnlineCasino.Application.Services
             }
             else
             {
+                throw new CollectionNotFoundException("No Collection with that ID was found. No records updated");
             }
 
         }
@@ -234,9 +236,8 @@ namespace OnlineCasino.Application.Services
             }
             else
             {
-
+                throw new GameNotFoundException("No Game with that ID was found. No records updated");
             }
-
         }
     }
 }
