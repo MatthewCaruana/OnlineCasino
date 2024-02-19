@@ -150,7 +150,7 @@ namespace OnlineCasino.Application.Services
                 }
 
                 //Get list of removed collection trees and remove them
-                List<CollectionTreeDataModel> collectionTreesToRemove = collectionTrees.Where(x => !updatedCollection.CollectionIds.Any(y => y == x.CollectionRootID)).ToList();
+                List<CollectionTreeDataModel> collectionTreesToRemove = collectionTrees.Where(x => !updatedCollection.CollectionIds.Any(y => y == x.CollectionBranchID)).ToList();
                 _repo.RemoveCollectionTrees(collectionTreesToRemove);
 
 
@@ -189,13 +189,13 @@ namespace OnlineCasino.Application.Services
             if(game != null)
             {
 
+                _repo.SaveChanges();
             }
             else
             {
 
             }
 
-            _repo.SaveChanges();
         }
     }
 }
