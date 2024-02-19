@@ -18,6 +18,9 @@ namespace OnlineCasino.Persistence.Repositories.Interfaces
         public void AddGameDevice(List<GamesDevicesDataModel> gamesDevices);
         public void AddGamesCollections(List<GamesCollectionsDataModel> gamesCollections);
 
+        public void AddCollection(CollectionsDataModel collection);
+        public void AddCollectionTree(List<CollectionTreeDataModel> collectionTrees);
+
         public void RemoveGame(int id);
         public void RemoveCollection(int id);  
 

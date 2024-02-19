@@ -23,7 +23,47 @@ namespace OnlineCasino.Application.Services
 
         public void CreateCollection(CreateCollectionDTO newCollection)
         {
+            CollectionsDataModel collectionsDataModel = new CollectionsDataModel();
+            collectionsDataModel.Name = newCollection.Name;
             
+            _repo.AddCollection(collectionsDataModel);
+            _repo.SaveChanges();
+
+            List<CollectionTreeDataModel> collectionTreeDataModels = new List<CollectionTreeDataModel>();
+            if(newCollection.CollectionIds != null && newCollection.CollectionIds.Count > 0)
+            {
+                foreach(int collectionBranchId in newCollection.CollectionIds)
+                {
+                    collectionTreeDataModels.Add(new CollectionTreeDataModel()
+                    {
+                        CollectionRootID = collectionsDataModel.ID,
+                        CollectionBranchID = collectionBranchId
+                    });
+                }
+            }
+
+            List<GamesCollectionsDataModel> gameCollectionsDataModels = new List<GamesCollectionsDataModel>();
+            if(newCollection.GameIds != null && newCollection.GameIds.Count > 0)
+            {
+                foreach(int gameId in newCollection.GameIds)
+                {
+                    gameCollectionsDataModels.Add(new GamesCollectionsDataModel()
+                    {
+                        CollectionsID = collectionsDataModel.ID,
+                        GamesID = gameId
+                    });
+                }
+            }
+
+            if(gameCollectionsDataModels.Count > 0)
+            {
+                _repo.AddGamesCollections(gameCollectionsDataModels);
+            }
+            if(collectionTreeDataModels.Count > 0)
+            {
+                _repo.AddCollectionTree(collectionTreeDataModels);
+            }
+            _repo.SaveChanges();
         }
 
         public void CreateGame(CreateGameDTO newGame)
@@ -63,8 +103,16 @@ namespace OnlineCasino.Application.Services
                 }
             }
 
-            _repo.AddGamesCollections(gamesCollectionsDataModels);
-            _repo.AddGameDevice(gamesDevicesDataModels);
+            if(gamesCollectionsDataModels.Count > 0)
+            {
+                _repo.AddGamesCollections(gamesCollectionsDataModels);
+
+            }
+            if(gamesDevicesDataModels.Count > 0)
+            {
+                _repo.AddGameDevice(gamesDevicesDataModels);
+            }
+            _repo.SaveChanges();
         }
 
         public void DeleteCollection(int id)

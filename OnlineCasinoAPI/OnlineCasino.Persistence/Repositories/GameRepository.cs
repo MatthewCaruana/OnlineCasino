@@ -19,6 +19,16 @@ namespace OnlineCasino.Persistence.Repositories
             _context = context;
         }
 
+        public void AddCollection(CollectionsDataModel collection)
+        {
+            _context.Collections.Add(collection);
+        }
+
+        public void AddCollectionTree(List<CollectionTreeDataModel> collectionTrees)
+        {
+            _context.CollectionTrees.AddRange(collectionTrees);
+        }
+
         public void AddGame(GamesDataModel game)
         {
             _context.Games.Add(game);
