@@ -29,9 +29,19 @@ namespace OnlineCasino.Persistence.Repositories
             _context.CollectionTree.AddRange(collectionTrees);
         }
 
+        public void AddCollectionTree(CollectionTreeDataModel collectionTree)
+        {
+            _context.CollectionTree.Add(collectionTree);
+        }
+
         public void AddGame(GamesDataModel game)
         {
             _context.Games.Add(game);
+        }
+
+        public void AddGameCollection(GamesCollectionsDataModel gamesCollection)
+        {
+            _context.GamesCollections.Add(gamesCollection);
         }
 
         public void AddGameDevice(List<GamesDevicesDataModel> gamesDevices)
@@ -72,6 +82,11 @@ namespace OnlineCasino.Persistence.Repositories
                                        .FirstOrDefault(x=>x.ID == id);
         }
 
+        public List<CollectionTreeDataModel> GetCollectionTreesWithRootId(int id)
+        {
+            return _context.CollectionTree.Where(x=>x.CollectionRootID == id).ToList();
+        }
+
         public GamesDataModel? GetGameById(int id)
         {
             return _context.Games.Include("GameCollections")
@@ -80,6 +95,11 @@ namespace OnlineCasino.Persistence.Repositories
                                  .Include("GameDevices.Device")
                                  .Include("Category")
                                  .FirstOrDefault(x=>x.ID == id);
+        }
+
+        public List<GamesCollectionsDataModel> GetGameCollectionsForCollection(int id)
+        {
+            return _context.GamesCollections.Where(x => x.CollectionsID == id).ToList();
         }
 
         public void RemoveCollection(int id)
@@ -97,6 +117,11 @@ namespace OnlineCasino.Persistence.Repositories
             }
         }
 
+        public void RemoveCollectionTrees(List<CollectionTreeDataModel> collectionTrees)
+        {
+            _context.CollectionTree.RemoveRange(collectionTrees);
+        }
+
         public void RemoveGame(int id)
         {
             var Game = GetGameById(id);
@@ -110,9 +135,24 @@ namespace OnlineCasino.Persistence.Repositories
             }
         }
 
+        public void RemoveGameCollections(List<GamesCollectionsDataModel> gameCollections)
+        {
+            _context.GamesCollections.RemoveRange(gameCollections);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public void UpdateCollection(CollectionsDataModel collection)
+        {
+            _context.Collections.Update(collection);
+        }
+
+        public void UpdateGame(GamesDataModel game)
+        {
+            _context.Games.Update(game);
         }
     }
 }

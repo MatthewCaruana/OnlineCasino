@@ -129,12 +129,73 @@ namespace OnlineCasino.Application.Services
 
         public void UpdateCollection(UpdateCollectionDTO updatedCollection)
         {
-            throw new NotImplementedException();
+            CollectionsDataModel collection = _repo.GetCollectionById(updatedCollection.Id);
+
+            if(collection != null)
+            {
+                collection.Name = updatedCollection.Name;
+
+                //Add new collection tree entries
+                List<CollectionTreeDataModel> collectionTrees = _repo.GetCollectionTreesWithRootId(updatedCollection.Id);
+                foreach(int collectionBranch in updatedCollection.CollectionIds)
+                {
+                    if(!collectionTrees.Any(x=>x.CollectionBranchID == collectionBranch))
+                    {
+                        CollectionTreeDataModel collectionTree = new CollectionTreeDataModel();
+                        collectionTree.CollectionRootID = collection.ID;
+                        collectionTree.CollectionBranchID = collectionBranch;
+
+                        _repo.AddCollectionTree(collectionTree);
+                    }
+                }
+
+                //Get list of removed collection trees and remove them
+                List<CollectionTreeDataModel> collectionTreesToRemove = collectionTrees.Where(x => !updatedCollection.CollectionIds.Any(y => y == x.CollectionRootID)).ToList();
+                _repo.RemoveCollectionTrees(collectionTreesToRemove);
+
+
+                //Add new games added to list
+                List<GamesCollectionsDataModel> gameCollections = _repo.GetGameCollectionsForCollection(updatedCollection.Id);
+                foreach (int gameId in updatedCollection.GameIds)
+                {
+                    if (!gameCollections.Any(x => x.GamesID == gameId))
+                    {
+                        GamesCollectionsDataModel gameCollection = new GamesCollectionsDataModel();
+                        gameCollection.CollectionsID = collection.ID;
+                        gameCollection.GamesID = gameId;
+
+                        _repo.AddGameCollection(gameCollection);
+                    }
+                }
+
+                //Get list of removed games and remove them
+                List<GamesCollectionsDataModel> gameCollectionsToRemove = gameCollections.Where(x => !updatedCollection.GameIds.Any(y => y == x.GamesID)).ToList();
+                _repo.RemoveGameCollections(gameCollectionsToRemove);
+
+                _repo.UpdateCollection(collection);
+                
+                _repo.SaveChanges();
+            }
+            else
+            {
+            }
+
         }
 
         public void UpdateGame(UpdateGameDTO updatedGame)
         {
-            throw new NotImplementedException();
+            GamesDataModel game = _repo.GetGameById(updatedGame.Id);
+
+            if(game != null)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            _repo.SaveChanges();
         }
     }
 }
