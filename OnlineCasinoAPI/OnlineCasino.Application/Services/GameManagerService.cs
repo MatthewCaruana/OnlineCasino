@@ -118,11 +118,13 @@ namespace OnlineCasino.Application.Services
         public void DeleteCollection(int id)
         {
             _repo.RemoveCollection(id);
+            _repo.SaveChanges();
         }
 
         public void DeleteGame(int id)
         {
             _repo.RemoveGame(id);
+            _repo.SaveChanges();
         }
 
         public void UpdateCollection(UpdateCollectionDTO updatedCollection)
