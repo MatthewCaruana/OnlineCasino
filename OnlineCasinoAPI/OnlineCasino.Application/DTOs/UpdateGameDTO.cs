@@ -11,7 +11,6 @@ namespace OnlineCasino.Application.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime ReleaseDate { get; set; }
         public Categories Category { get; set; }
         public byte[] Thumbnail { get; set; }
         public List<Devices> Devices { get; set; }

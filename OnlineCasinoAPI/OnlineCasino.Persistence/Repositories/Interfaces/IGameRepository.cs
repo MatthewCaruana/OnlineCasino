@@ -16,9 +16,12 @@ namespace OnlineCasino.Persistence.Repositories.Interfaces
 
         public List<CollectionTreeDataModel> GetCollectionTreesWithRootId(int id);
         public List<GamesCollectionsDataModel> GetGameCollectionsForCollection(int id);
+        public List<GamesCollectionsDataModel> GetGameCollectionsForGame(int id);
+        public List<GamesDevicesDataModel> GetGameDevicesForGame(int id);
 
         public void AddGame(GamesDataModel game);
         public void AddGameDevice(List<GamesDevicesDataModel> gamesDevices);
+        public void AddGameDevice(GamesDevicesDataModel gamesDevice);
         public void AddGamesCollections(List<GamesCollectionsDataModel> gamesCollections);
         public void AddGameCollection(GamesCollectionsDataModel gamesCollection);
 
@@ -33,6 +36,7 @@ namespace OnlineCasino.Persistence.Repositories.Interfaces
         public void RemoveCollection(int id);
         public void RemoveCollectionTrees(List<CollectionTreeDataModel> collectionTrees);
         public void RemoveGameCollections(List<GamesCollectionsDataModel> gameCollections);
+        public void RemoveGameDevices(List<GamesDevicesDataModel> gameDevices);
 
         public void SaveChanges();
     }

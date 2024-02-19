@@ -188,6 +188,47 @@ namespace OnlineCasino.Application.Services
 
             if(game != null)
             {
+                game.Thumbnail = updatedGame.Thumbnail;
+                game.Name = updatedGame.Name;
+                game.CategoryID = (int)updatedGame.Category;
+
+                //Add new game devices
+                List<GamesDevicesDataModel> gameDevices = _repo.GetGameDevicesForGame(updatedGame.Id);
+                foreach(int deviceId in updatedGame.Devices)
+                {
+                    if(!gameDevices.Any(x=>x.GamesID == game.ID))
+                    {
+                        GamesDevicesDataModel gameDevice = new GamesDevicesDataModel();
+                        gameDevice.GamesID = game.ID;
+                        gameDevice.DevicesID = deviceId;
+
+                        _repo.AddGameDevice(gameDevice);
+                    }
+                }
+
+                //Get list of removed devices and remove them
+                List<GamesDevicesDataModel> gamesDevicesToRemove = gameDevices.Where(x => !updatedGame.Devices.Any(y => (int)y == x.GamesID)).ToList();
+                _repo.RemoveGameDevices(gamesDevicesToRemove);
+
+                //Add new games added to list
+                List<GamesCollectionsDataModel> gameCollections = _repo.GetGameCollectionsForGame(updatedGame.Id);
+                foreach (int collectionId in updatedGame.Collections)
+                {
+                    if (!gameCollections.Any(x => x.GamesID == game.ID))
+                    {
+                        GamesCollectionsDataModel gameCollection = new GamesCollectionsDataModel();
+                        gameCollection.CollectionsID = collectionId;
+                        gameCollection.GamesID = game.ID;
+
+                        _repo.AddGameCollection(gameCollection);
+                    }
+                }
+
+                //Get list of removed games and remove them
+                List<GamesCollectionsDataModel> gameCollectionsToRemove = gameCollections.Where(x => !updatedGame.Collections.Any(y => y == x.CollectionsID)).ToList();
+                _repo.RemoveGameCollections(gameCollectionsToRemove);
+
+                _repo.UpdateGame(game);
 
                 _repo.SaveChanges();
             }
