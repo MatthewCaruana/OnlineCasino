@@ -13,7 +13,7 @@ namespace OnlineCasinoAPI.Controllers
         private readonly ILogger<GameMasterController> _logger;
         private IGameManagerService _gameService;
 
-        public GameMasterController(ILogger<GameMasterController> logger, IGameService gameService)
+        public GameMasterController(ILogger<GameMasterController> logger, IGameManagerService gameService)
         {
             _logger = logger;
             _gameService = gameService;

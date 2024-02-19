@@ -12,6 +12,6 @@ namespace OnlineCasino.Persistence.DataModels
         public string Name { get; set; }
         public virtual List<GamesCollectionsDataModel> GamesCollections { get; set; }
         public virtual List<CollectionTreeDataModel> CollectionTreeRoots { get; set; }
-        public virtual List<CollectionTreeDataModel> CollectionTreeBranch { get; set; }
+        public virtual List<CollectionTreeDataModel> CollectionTreeBranches { get; set; }
     }
 }

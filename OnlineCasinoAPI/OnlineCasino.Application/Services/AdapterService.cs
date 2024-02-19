@@ -52,7 +52,7 @@ namespace OnlineCasino.Application.Services
                 
                 if(dataModel.CollectionTreeRoots.Count > 0)
                 {
-                    tempDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeBranch.Select(x=>x.Branch).ToList());
+                    tempDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeRoots.Select(x=>x.Branch).ToList());
                 }
 
                 AllCollectionsDTOs.Add(tempDTO);
@@ -87,7 +87,7 @@ namespace OnlineCasino.Application.Services
 
             if (dataModel.CollectionTreeRoots.Count > 0)
             {
-                collectionDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeBranch.Select(x => x.Branch).ToList());
+                collectionDTO.SubCollections = AdapterService.AdaptToAllCollectionsDTO(dataModel.CollectionTreeBranches.Select(x => x.Branch).ToList());
             }
 
             return collectionDTO;

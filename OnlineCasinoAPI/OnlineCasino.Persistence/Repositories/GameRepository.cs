@@ -26,7 +26,7 @@ namespace OnlineCasino.Persistence.Repositories
 
         public void AddCollectionTree(List<CollectionTreeDataModel> collectionTrees)
         {
-            _context.CollectionTrees.AddRange(collectionTrees);
+            _context.CollectionTree.AddRange(collectionTrees);
         }
 
         public void AddGame(GamesDataModel game)
@@ -46,8 +46,8 @@ namespace OnlineCasino.Persistence.Repositories
 
         public List<CollectionsDataModel> GetAllCollections()
         {
-            return _context.Collections.Include("GameCollections")
-                                       .Include("GameCollections.Game")
+            return _context.Collections.Include("GamesCollections")
+                                       .Include("GamesCollections.Game")
                                        .Include("CollectionTreeRoots")
                                        .Include("CollectionTreeBranches")
                                        .ToList();
@@ -65,8 +65,8 @@ namespace OnlineCasino.Persistence.Repositories
 
         public CollectionsDataModel? GetCollectionById(int id)
         {
-            return _context.Collections.Include("GameCollections")
-                                       .Include("GameCollections.Game")
+            return _context.Collections.Include("GamesCollections")
+                                       .Include("GamesCollections.Game")
                                        .Include("CollectionTreeRoots")
                                        .Include("CollectionTreeBranches")
                                        .FirstOrDefault(x=>x.ID == id);
@@ -86,8 +86,8 @@ namespace OnlineCasino.Persistence.Repositories
         {
             var Collection = GetCollectionById(id);
 
-            _context.CollectionTrees.RemoveRange(Collection.CollectionTreeRoots);
-            _context.CollectionTrees.RemoveRange(Collection.CollectionTreeBranch);
+            _context.CollectionTree.RemoveRange(Collection.CollectionTreeRoots);
+            _context.CollectionTree.RemoveRange(Collection.CollectionTreeBranches);
 
             _context.GamesCollections.RemoveRange(Collection.GamesCollections);
 

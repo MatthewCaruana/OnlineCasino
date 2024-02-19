@@ -21,7 +21,7 @@ namespace OnlineCasino.Persistence.Context
         public DbSet<CategoriesDataModel> Categories { get; set; }
         public DbSet<CollectionsDataModel> Collections { get; set; }
         public DbSet<DevicesDataModel> Devices { get; set; }
-        public DbSet<CollectionTreeDataModel> CollectionTrees { get; set; }
+        public DbSet<CollectionTreeDataModel> CollectionTree { get; set; }
         public DbSet<UsersDataModel> Users { get; set; }
 
         public OnlineCasinoDbContext() { }
