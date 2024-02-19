@@ -54,7 +54,7 @@ namespace OnlineCasinoAPI.Controllers
             _gameManagerService.DeleteGame(id);
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("DeleteCollection")]
         public void DeleteCollection([FromBody] int id)
         {

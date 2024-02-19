@@ -86,22 +86,28 @@ namespace OnlineCasino.Persistence.Repositories
         {
             var Collection = GetCollectionById(id);
 
-            _context.CollectionTree.RemoveRange(Collection.CollectionTreeRoots);
-            _context.CollectionTree.RemoveRange(Collection.CollectionTreeBranches);
+            if (Collection != null)
+            {
+                _context.CollectionTree.RemoveRange(Collection.CollectionTreeRoots);
+                _context.CollectionTree.RemoveRange(Collection.CollectionTreeBranches);
 
-            _context.GamesCollections.RemoveRange(Collection.GamesCollections);
+                _context.GamesCollections.RemoveRange(Collection.GamesCollections);
 
-            _context.Collections.Remove(Collection);
+                _context.Collections.Remove(Collection);
+            }
         }
 
         public void RemoveGame(int id)
         {
             var Game = GetGameById(id);
 
-            _context.GamesDevices.RemoveRange(Game.GameDevices);
-            _context.GamesCollections.RemoveRange(Game.GameCollections);
+            if (Game != null)
+            {
+                _context.GamesDevices.RemoveRange(Game.GameDevices);
+                _context.GamesCollections.RemoveRange(Game.GameCollections);
 
-            _context.Games.Remove(Game);
+                _context.Games.Remove(Game);
+            }
         }
 
         public void SaveChanges()
