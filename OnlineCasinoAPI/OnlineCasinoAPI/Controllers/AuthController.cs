@@ -28,10 +28,12 @@ namespace OnlineCasinoAPI.Controllers
         [Route("login")]
         public IActionResult Login([FromBody]LoginRequestDTO loginRequest)
         {
+            //Check if login is successful
             Validations status = _authService.AttemptLogin(loginRequest);
 
             if(status == Validations.FOUND)
             {
+                //Generate Secure Key Token
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 

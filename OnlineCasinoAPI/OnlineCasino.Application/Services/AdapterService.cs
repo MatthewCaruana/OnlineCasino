@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnlineCasino.Application.Services
 {
+    //To convert from DTO to Data Model
     public class AdapterService
     {
         public static List<AllGamesDTO> AdaptToAllGamesDTO(List<GamesDataModel> dataModels)

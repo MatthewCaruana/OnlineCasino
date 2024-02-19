@@ -24,12 +24,14 @@ namespace OnlineCasino.Application.Services
 
         public void CreateCollection(CreateCollectionDTO newCollection)
         {
+            //Create Collection Data Model
             CollectionsDataModel collectionsDataModel = new CollectionsDataModel();
             collectionsDataModel.Name = newCollection.Name;
             
             _repo.AddCollection(collectionsDataModel);
             _repo.SaveChanges();
 
+            //Create Collection Tree Data Models
             List<CollectionTreeDataModel> collectionTreeDataModels = new List<CollectionTreeDataModel>();
             if(newCollection.CollectionIds != null && newCollection.CollectionIds.Count > 0)
             {
@@ -43,6 +45,7 @@ namespace OnlineCasino.Application.Services
                 }
             }
 
+            //Create Game Collection Data Models
             List<GamesCollectionsDataModel> gameCollectionsDataModels = new List<GamesCollectionsDataModel>();
             if(newCollection.GameIds != null && newCollection.GameIds.Count > 0)
             {
@@ -69,6 +72,7 @@ namespace OnlineCasino.Application.Services
 
         public void CreateGame(CreateGameDTO newGame)
         {
+            //Create Base Game data model
             GamesDataModel gamesDataModel = new GamesDataModel();
             gamesDataModel.Name = newGame.Name;
             gamesDataModel.CategoryID = (int)newGame.Category;
@@ -78,6 +82,7 @@ namespace OnlineCasino.Application.Services
             _repo.AddGame(gamesDataModel);
             _repo.SaveChanges();
 
+            //Create Game Collections
             List<GamesCollectionsDataModel> gamesCollectionsDataModels = new List<GamesCollectionsDataModel>();
             if(newGame.Collections != null && newGame.Collections.Count > 0) 
             {
@@ -91,6 +96,7 @@ namespace OnlineCasino.Application.Services
                 }
             }
 
+            //Create Game Devices
             List<GamesDevicesDataModel> gamesDevicesDataModels = new List<GamesDevicesDataModel>();
             if(newGame.Devices != null && newGame.Devices.Count > 0)
             {
